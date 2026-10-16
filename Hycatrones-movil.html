@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12141c"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>Hyatlon Live</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#12141c;--pn:#1b1f2b;--pn2:#242a3a;--tx:#e8eaf0;--mu:#8b93a7;--ac:#ffd23f;--ok:#3ddc97;--bd:#2f3649;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:0}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 Barlow,system-ui,sans-serif}
+h1,h2,h3,.cn{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;margin:0;letter-spacing:.02em}
+button,input,select{font:inherit;color:inherit}
+button{background:var(--pn2);border:1px solid var(--bd);border-radius:8px;padding:8px 14px;cursor:pointer}
+button:hover{border-color:var(--ac)}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+button.pri{background:var(--ac);color:#12141c;border-color:var(--ac);font-weight:600}
+input,select{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
+.wrap{max-width:1200px;margin:0 auto;padding:12px}
+#login{max-width:520px;margin:6vh auto;padding:20px}
+#login h1{font-size:56px;line-height:.95}#login h1 span{color:var(--ac)}
+.card{background:var(--pn);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid{display:grid;grid-template-columns:1.1fr 1fr;gap:12px}@media(max-width:860px){.grid{grid-template-columns:1fr}}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+header.top h1{font-size:30px}header.top h1 span{color:var(--ac)}
+.clock{font-family:'Barlow Condensed';font-size:28px;color:var(--ac)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px}
+.tabs button{white-space:nowrap}.tabs button.on{background:var(--ac);color:#12141c;border-color:var(--ac);font-weight:600}
+table{width:100%;border-collapse:collapse}td,th{padding:6px 6px;text-align:left;border-bottom:1px solid var(--bd)}th{color:var(--mu);font-weight:400;font-size:13px}
+td.t{font-family:'Barlow Condensed';font-size:19px}tr.me td{background:#2b2a1a}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:'Barlow Condensed';font-size:20px;color:#12141c;font-weight:700;flex:none}
+.big{font-family:'Barlow Condensed';font-size:64px;line-height:1;color:var(--ac)}
+.mu{color:var(--mu)}.ok{color:var(--ok)}
+.st{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin:10px 0}
+.st div{height:34px;border-radius:6px;background:var(--pn2);display:grid;place-items:center;font-size:12px;font-family:'Barlow Condensed'}
+.st .d{background:var(--ok);color:#12141c}.st .c{background:var(--ac);color:#12141c;animation:pl 1.2s infinite}
+@keyframes pl{50%{opacity:.55}}@media(prefers-reduced-motion:reduce){.st .c{animation:none}}
+.bar{height:6px;background:var(--pn2);border-radius:3px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac)}
+svg#map{width:100%;height:auto;background:#161a25;border-radius:10px}
+#toasts{position:fixed;right:12px;top:calc(12px + env(safe-area-inset-top,0px));z-index:9;display:flex;flex-direction:column;gap:8px;max-width:340px}
+.toast{background:var(--pn2);border-left:5px solid var(--ok);border-radius:8px;padding:10px 12px;box-shadow:0 4px 18px #0008}
+.log{max-height:170px;overflow:auto;font-size:14px}.log div{padding:4px 0;border-bottom:1px solid var(--bd)}
+ul.r{margin:6px 0 0;padding-left:18px}.hide{display:none}
+.tag{font-size:12px;padding:2px 8px;border-radius:10px;background:var(--pn2)}
+.timein{display:flex;gap:4px;align-items:center}.timein input{width:62px;text-align:center}
+.md{position:fixed;inset:0;background:#000b;display:grid;place-items:center;z-index:20;padding:12px}.md.hide{display:none}
+.mdc{background:var(--pn);border:1px solid var(--ac);border-radius:14px;max-width:560px;width:100%;max-height:92vh;overflow:auto;padding:16px;position:relative}
+.mdc h2{font-size:30px;padding-right:90px}.mdc .x{position:absolute;right:12px;top:12px}
+.mdc svg{width:100%;height:auto;background:#161a25;border-radius:10px;margin:8px 0}
+.sn{cursor:pointer}.sn:hover circle{fill:#ffd23f}.sn:focus-visible circle{stroke:#fff;stroke-width:2}.sn:hover text{fill:#12141c}
+
+html{-webkit-text-size-adjust:100%}body{-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
+button,input,select{touch-action:manipulation}
+button{min-height:44px}input,select{font-size:16px;min-height:44px}
+.wrap{max-width:560px;padding:10px 12px 0}#app{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);flex-wrap:nowrap;padding:6px 0;margin:0 0 6px}
+header.top h1{font-size:26px}.clock{font-size:26px;white-space:nowrap}
+.tabs{margin:0 -12px 8px;padding:0 12px 6px}.tabs button{min-height:40px}
+body[data-v=yo] .vw:not(.v-yo),body[data-v=cl] .vw:not(.v-cl),body[data-v=mp] .vw:not(.v-mp),body[data-v=in] .vw:not(.v-in){display:none}
+.demo{margin-bottom:10px}.demo button{min-height:40px;padding:6px 14px}
+#bn{position:fixed;left:0;right:0;bottom:0;z-index:15;display:flex;background:var(--pn);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px)}
+#bn button{flex:1;min-height:60px;border:0;border-radius:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;color:var(--mu);padding:6px 2px}
+#bn button b{font-size:20px;line-height:1;font-weight:400}#bn button.on{color:var(--ac);font-weight:600}
+.rw{display:flex;gap:10px;align-items:center;padding:10px 6px;border-bottom:1px solid var(--bd)}
+.rw.me{background:#2b2a1a;border-radius:8px}.ps{font-family:'Barlow Condensed';font-size:22px;width:26px;text-align:center;color:var(--mu);flex:none}
+.rw .in{flex:1;min-width:0}.nm{font-weight:600}.sm{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 5px}
+.rw .t{font-size:24px;flex:none}
+.big{font-size:52px}.st div{height:40px}
+.log{max-height:45vh}
+#toasts{left:12px;right:12px;max-width:none}
+#login{margin:4vh auto;padding:18px}#login .row button{flex:1 1 100%}#s2 select{flex:1 1 45%}
+.timein input{width:72px}
+.md{place-items:end center;padding:0}.mdc{border-radius:16px 16px 0 0;max-height:90vh;max-height:90dvh;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.mdc .x{min-height:40px}
+</style></head><body data-v="yo">
+
+<section id="login" class="card">
+  <h1>HYATLON<br><span>LIVE</span></h1>
+  <p class="mu">Sigue a tu atleta prueba a prueba, en directo.</p>
+  <div id="s1">
+    <label>Código de entrada al recinto<br><input id="code" placeholder="Ej. BCP2026" style="width:100%;margin:6px 0"></label>
+    <div id="err" class="mu"></div>
+    <div class="row" style="margin-top:8px"><button class="pri" onclick="enter('esp')">Entrar como espectador</button><button onclick="enter('par')">Entrar como participante</button></div>
+    <p class="mu" style="margin-top:14px">¿Lo ves desde casa? No necesitas código.</p>
+    <button onclick="home()">Ver la competición sin sesión</button>
+    <p class="mu" style="font-size:13px">Demo: cualquier código de 4 o más caracteres funciona.</p>
+  </div>
+  <div id="s2" class="hide"></div>
+</section>
+
+<main id="app" class="wrap hide">
+  <header class="top"><h1>HYATLON <span>LIVE</span></h1><span class="clock" id="clock"></span></header>
+  <div class="tabs vw v-cl v-in" id="tabs"></div>
+  <section class="vw v-yo">
+    <div class="row demo"><span class="mu">Demo</span><button onclick="spd(60)">×60</button><button onclick="spd(180)">×180</button><button onclick="spd(600)">×600</button><button onclick="go()">⟲ Reiniciar</button></div>
+    <div class="card" id="mine"></div>
+    <div class="card"><h3>Avisos NFC</h3><div class="log" id="log"><span class="mu">Cuando tu atleta pase la pulsera por una estación, verás el aviso aquí y en tu móvil.</span></div></div>
+  </section>
+  <section class="vw v-cl"><div class="card"><h2 id="bt">Clasificación</h2><div id="board"></div></div></section>
+  <section class="vw v-mp"><div class="card"><h3>Mapa del circuito</h3>
+    <svg id="map" viewBox="0 0 380 230" role="img" aria-label="Mapa esquemático del circuito"><g id="stn"></g><g id="dots"></g></svg>
+    <div class="row" id="leg" style="margin-top:6px;font-size:13px"></div></div></section>
+  <section class="vw v-in">
+    <div class="card"><h3>Normas y pesos · <span id="rt"></span></h3><div id="rules"></div></div>
+    <div class="card"><h3>Premios</h3><div id="prizes"></div></div>
+  </section>
+  <nav id="bn" aria-label="Secciones">
+    <button class="on" data-v="yo" onclick="view('yo')"><b>⭐</b>Mi atleta</button>
+    <button data-v="cl" onclick="view('cl')"><b>📊</b>Clasif.</button>
+    <button data-v="mp" onclick="view('mp')"><b>🗺️</b>Mapa</button>
+    <button data-v="in" onclick="view('in')"><b>📋</b>Info</button>
+  </nav>
+</main>
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+const ST=['SkiErg 1000 m','Sled Push 50 m','Sled Pull 50 m','Burpee Broad Jumps 80 m','Remo 1000 m','Farmers Carry 200 m','Sandbag Lunges 100 m','Wall Balls'];
+const SH=['Ski','Push','Pull','BBJ','Remo','Farm','Lung','Wall'];
+const TC=['#ffd23f','#3ddc97','#4cc9f0','#ff7ab6'];
+const CATS={
+'Elite / Pro':{b:3900,w:['Sled Push 152 kg','Sled Pull 103 kg','Farmers 2×32 kg','Sandbag 30 kg','Wall Ball 9 kg · 100 rep'],n:'Máxima exigencia. Sin ayudas de pie en el trineo; todas las repeticiones deben tocar la diana.'},
+'Open':{b:5400,w:['Sled Push 102 kg','Sled Pull 78 kg','Farmers 2×24 kg','Sandbag 20 kg','Wall Ball 6 kg · 100 rep'],n:'Categoría recomendada para empezar. Se permite pausar en cada estación.'},
+'Age Group':{b:5000,w:['Sled Push 90 kg','Sled Pull 68 kg','Farmers 2×20 kg','Sandbag 15 kg','Wall Ball 6 kg · 75 rep'],n:'Franjas de edad (25-34, 35-44, 45+…). Cada franja clasifica por separado.'},
+'Doubles':{b:4600,w:['Sled Push 125 kg','Sled Pull 90 kg','Farmers 2×24 kg','Sandbag 20 kg','Wall Ball 6 kg · 100 rep'],n:'Dos atletas juntos. Una pareja solo cruza la meta cuando ambos terminan la prueba.'},
+'Relay':{b:4300,w:['Sled Push 102 kg','Sled Pull 78 kg','Farmers 2×24 kg','Sandbag 20 kg','Wall Ball 6 kg · 100 rep'],n:'Equipos de 4 que se relevan por estación. El relevo se hace en la zona marcada.'},
+'Paralímpico':{b:5600,w:['Cargas adaptadas por clase funcional','Sled adaptado','Farmers adaptado','Sandbag 10 kg','Wall Ball 4 kg · 75 rep'],n:'Cargas y distancias adaptadas a la diversidad funcional, validadas por el juez de clase.'}};
+const NAMES=['Lucía Prieto','Marcos Vidal','Carla Ibáñez','Dani Roca','Nerea Soto','Iván Cuesta','Paula Marín','Hugo Lara','Sara Beltrán','Álex Rueda','Marta Gil','Pablo Nieto','Elena Cano','Rubén Pardo','Irene Vega','Jorge Mena','Noa Ferrer','Adrián Solís','Clara Ramos','Óscar Pino','Laura Heras','Sergio Mora','Ana Duarte','Íker Salas'];
+let P=[],SP=[],clock=0,speed=60,cat='Elite / Pro',me={role:null,fav:null,name:'Tú'},seen={},mine=null,$=id=>document.getElementById(id);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const fmt=s=>{s=Math.max(0,Math.round(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+':':'')+String(m).padStart(h?2:1,'0')+':'+String(x).padStart(2,'0')};
+const ini=n=>n.split(' ').map(w=>w[0]).join('').slice(0,2);
+function go(){clock=-60;seen={};P=[];let k=0;Object.keys(CATS).forEach(c=>{for(let i=0;i<4;i++){const T=Math.round(CATS[c].b*rnd(.9,1.1));P.push({id:k,name:NAMES[k],cat:c,tanda:i,start:i*420,T,pred:Math.round(T*rnd(.88,1.12)),col:TC[i]});k++}});
+ if(mine){mine.id=k;mine.start=mine.tanda*420;mine.T=Math.round(CATS[mine.cat].b*rnd(.92,1.08));P.push(mine)}
+ SP=['Rosa','Tomás','Ines','Pedro','Julia','Mario'].map(n=>{const p=P[Math.floor(Math.random()*24)];return{name:n,pid:p.id,pred:Math.round(p.T*rnd(.85,1.15))}});
+ if(me.role==='esp'&&me.fav!=null&&me.pred)SP.push({name:'Tú',pid:me.fav,pred:me.pred});
+ P.forEach(p=>seen[p.id]=0);$('log').innerHTML='';}
+function prog(p){return Math.min(1,Math.max(0,(clock-p.start)/p.T))}
+function ev(p){const x=prog(p)*8;return Math.min(16,Math.floor(x)*2+(x%1>=.55?1:0)+(x>=8?0:0))}
+function stage(p){const x=prog(p);if(clock<p.start)return 'Esperando tanda '+(p.tanda+1);if(x>=1)return 'Finalizado';const i=Math.floor(x*8);return (x*8-i>=.55?'En ':'Corriendo a ')+ST[i]}
+function rank(c){const L=P.filter(p=>p.cat===c);return L.sort((a,b)=>{const fa=prog(a)>=1,fb=prog(b)>=1;if(fa&&fb)return a.T-b.T;if(fa)return -1;if(fb)return 1;return prog(b)-prog(a)})}
+function toast(t,c){const d=document.createElement('div');d.className='toast';if(c)d.style.borderColor=c;d.textContent=t;$('toasts').appendChild(d);setTimeout(()=>d.remove(),6000)}
+function tick(){clock+=.25*speed;
+ P.forEach(p=>{const e=prog(p)>=1?16:ev(p);if(e>seen[p.id]){const fav=p.id===me.fav||(mine&&p.id===mine.id&&me.role==='par');for(let k=seen[p.id]+1;k<=e;k++){const i=Math.floor((k-1)/2),ent=k%2===1;let t=p.start+(ent?(i+.55)/8:(i+1)/8)*p.T;
+ const msg=(ent?'⇥ ENTRA en ':'✓ SUPERA ')+ST[i]+' · '+p.name+' · '+(ent?'':'split ')+fmt(t-p.start);
+ if(fav){toast('NFC · '+msg,ent?'#ffd23f':'#3ddc97');const d=document.createElement('div');d.textContent=fmt(clock<0?0:clock)+' · '+msg;if($('log').querySelector('.mu'))$('log').innerHTML='';$('log').prepend(d)}}seen[p.id]=e}});
+ draw();}
+function draw(){$('clock').textContent=(clock<0?'Salida en ':'⏱ ')+fmt(Math.abs(clock));
+ const R=rank(cat);$('bt').textContent='Clasificación · '+cat;
+ $('board').innerHTML=R.map((p,i)=>{const x=prog(p),f=x>=1,m=p.id===me.fav||(mine&&p.id===mine.id&&me.role==='par');return `<div class="rw${m?' me':''}"><b class="ps">${i+1}</b><div class="in"><div class="nm"><span class="dot" style="background:${p.col}"></span>${p.name}${m?' ★':''}</div><div class="mu sm">${stage(p)}</div><div class="bar"><i style="width:${x*100}%"></i></div></div><div class="t ${f?'ok':''}">${f?fmt(p.T):clock<p.start?'—':fmt(clock-p.start)}</div></div>`}).join('');
+ const C=CATS[cat];$('rt').textContent=cat;$('rules').innerHTML='<ul class="r">'+C.w.map(w=>'<li>'+w+'</li>').join('')+'</ul><p class="mu">'+C.n+'</p>';
+ mypanel();prizes();dots();}
+function mypanel(){const id=me.role==='par'&&mine?mine.id:me.fav,p=P.find(q=>q.id===id),el=$('mine');
+ if(!p){el.innerHTML='<h3>Modo directo</h3><p class="mu">Estás viendo la carrera sin sesión. Entra con el código del recinto para apadrinar a un atleta y recibir avisos.</p>';return}
+ const x=prog(p),L=rank(p.cat),pos=L.indexOf(p)+1,done=Math.floor(x*8+1e-9),cur=x>=1?-1:Math.floor(x*8);
+ el.innerHTML=`<div class="row"><div class="av" style="background:${p.col}">${ini(p.name)}</div><div><h3>${me.role==='par'?'TÚ':'TU ATLETA'} · ${p.name}</h3><span class="tag">${p.cat} · tanda ${p.tanda+1}</span></div></div>
+ <div class="row" style="justify-content:space-between;margin-top:8px"><div><div class="mu">Posición</div><div class="big">P${pos}<span class="mu" style="font-size:24px">/${L.length}</span></div></div><div style="text-align:right"><div class="mu">Tiempo</div><div class="big">${x>=1?fmt(p.T):clock<p.start?'0:00':fmt(clock-p.start)}</div></div></div>
+ <div class="st">${SH.map((s,i)=>`<div class="${i<done?'d':i===cur?'c':''}" title="${ST[i]}">${s}</div>`).join('')}</div>
+ <div class="mu">${stage(p)} · fases superadas ${Math.min(8,done)}/8</div>
+ <div class="mu" style="margin-top:4px">Tu predicción: <b style="color:var(--tx)">${(me.role==='par'?(mine&&mine.pred):me.pred)?fmt(me.role==='par'?mine.pred:me.pred):'—'}</b></div>`}
+function prizes(){const F=P.filter(p=>prog(p)>=1);
+ const E=SP.map(s=>{const p=P.find(q=>q.id===s.pid);return{n:s.name,p,d:p&&prog(p)>=1?Math.abs(s.pred-p.T):null,pr:s.pred}}).filter(e=>e.d!=null).sort((a,b)=>a.d-b.d);
+ const best=E.length?E[0].d:null;
+ let h='<p><b>Espectadores</b> · gana quien más se acerque al tiempo de su apadrinado</p>';
+ h+=E.length?'<table>'+E.slice(0,5).map(e=>`<tr><td>${e.d===best?'🏆':''}${e.n}${e.n==='Tú'?' ★':''}</td><td class="mu">${e.p.name}</td><td class="t">±${fmt(e.d)}</td></tr>`).join('')+'</table>':'<p class="mu">Se decide cuando acaben los primeros atletas.</p>';
+ const A=F.map(p=>({p,d:Math.abs(p.pred-p.T)})).sort((a,b)=>a.d-b.d),bd=A.length?A[0].d:null;
+ h+='<p style="margin-top:10px"><b>Atletas</b> · 3 meses con BCP entrenamiento personal para quien más acierte (empates: ganan todos)</p>';
+ h+=A.length?'<table>'+A.slice(0,5).map(a=>`<tr><td>${a.d===bd?'🏆':''}${a.p.name}</td><td class="mu">${fmt(a.p.pred)} → ${fmt(a.p.T)}</td><td class="t">±${fmt(a.d)}</td></tr>`).join('')+'</table>':'<p class="mu">Aún no hay llegadas.</p>';
+ $('prizes').innerHTML=h}
+let built=false;
+function tabs(){$('tabs').innerHTML=Object.keys(CATS).map(c=>`<button class="${c===cat?'on':''}" onclick="cat='${c}';tabs();draw()">${c}</button>`).join('')}
+function spd(s){speed=s}
+function view(v){document.body.dataset.v=v;document.querySelectorAll('#bn button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));scrollTo(0,0)}
+function launch(){$('login').classList.add('hide');$('app').classList.remove('hide');view(me.fav!=null||me.role==='par'?'yo':'cl');tabs();go();draw();setInterval(tick,250)}
+function home(){me={role:null,fav:null};launch()}
+function enter(r){if($('code').value.trim().length<4){$('err').textContent='Introduce el código que te dieron en la entrada (mínimo 4 caracteres).';return}
+ me.role=r;$('s1').classList.add('hide');const s=$('s2');s.classList.remove('hide');
+ if(r==='esp'){go0();s.innerHTML='<h2>Elige a tu favorito</h2><p class="mu">O deja que te apadrinemos a un atleta al azar.</p><div class="row" style="margin:8px 0"><button class="pri" onclick="pick(Math.floor(Math.random()*24))">🎲 Apadrinar al azar</button></div><div style="max-height:42vh;overflow:auto">'+P.slice(0,24).map(p=>`<button style="width:100%;text-align:left;margin-bottom:4px" onclick="pick(${p.id})"><span class="dot" style="background:${p.col}"></span>${p.name} <span class="mu">· ${p.cat}</span></button>`).join('')+'</div>'}
+ else s.innerHTML=`<h2>Inscripción de participante</h2><div class="row" style="margin:8px 0"><input id="pn" placeholder="Tu nombre" style="flex:1"><select id="pc">${Object.keys(CATS).map(c=>`<option>${c}</option>`).join('')}</select><select id="pt"><option value="0">Tanda 1</option><option value="1">Tanda 2</option><option value="2">Tanda 3</option><option value="3">Tanda 4</option></select></div><p>¿Cuánto crees que vas a tardar?</p>${tin()}<button class="pri" style="margin-top:10px" onclick="reg()">Inscribirme y entrar</button>`}
+function go0(){P=[];let k=0;Object.keys(CATS).forEach(c=>{for(let i=0;i<4;i++){P.push({id:k,name:NAMES[k],cat:c,tanda:i,col:TC[i]});k++}})}
+function tin(){return '<div class="timein"><input id="th" type="number" min="0" max="3" value="1" aria-label="horas">h<input id="tm" type="number" min="0" max="59" value="30" aria-label="minutos">m<input id="ts" type="number" min="0" max="59" value="0" aria-label="segundos">s</div>'}
+function tv(){return (+$('th').value)*3600+(+$('tm').value)*60+(+$('ts').value)}
+function pick(id){me.fav=id;const p=P.find(q=>q.id===id);$('s2').innerHTML=`<h2>Tu atleta</h2><div class="row" style="margin:10px 0"><div class="av" style="background:${p.col};width:72px;height:72px;font-size:30px">${ini(p.name)}</div><div><h3>${p.name}</h3><span class="tag">${p.cat} · tanda ${p.tanda+1}</span></div></div><p>¿Qué tiempo crees que hará? Se bloquea cuando empieza su tanda.</p>${tin()}<button class="pri" style="margin-top:10px" onclick="me.pred=tv();launch()">Guardar predicción y ver la carrera</button>`}
+function reg(){const n=$('pn').value.trim()||'Participante nuevo';mine={name:n,cat:$('pc').value,tanda:+$('pt').value,col:TC[+$('pt').value],pred:tv()};me.name=n;launch()}
+const LEGS=[[[38,45],[14,45],[14,205],[48,205],[48,60],[80,60],[101,41]],[[101,41],[75,60],[58,60],[58,150],[94,150],[94,108]],[[94,108],[94,150],[146,150],[146,108]],[[146,108],[146,150],[190,150],[190,108]],[[190,108],[190,150],[225,150],[225,108]],[[225,108],[225,150],[269,150],[269,108]],[[269,108],[269,150],[303,150],[303,108]],[[303,108],[303,150],[335,150],[335,72],[300,60],[271,60]]];
+const SP_=[[101,41],[94,108],[146,108],[190,108],[225,108],[269,108],[303,108],[271,60]];
+const BX=[[78,24,46,24],[75,80,38,60],[126,76,40,64],[177,80,27,60],[205,80,40,60],[256,80,27,60],[291,80,25,60],[245,36,52,32]];
+const along=(pts,u)=>{let L=0,s=[];for(let i=1;i<pts.length;i++){const d=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);s.push(d);L+=d}let t=u*L;for(let i=0;i<s.length;i++){if(t<=s[i]||i===s.length-1){const f=Math.min(1,t/s[i]);return[pts[i][0]+(pts[i+1][0]-pts[i][0])*f,pts[i][1]+(pts[i+1][1]-pts[i][1])*f]}t-=s[i]}};
+function pos(x,p){if(x<=0)return[38+(p.id%5)*2,45+(p.id%3)*2];if(x>=1)return[236,52+(p.id%4)*2];const g=Math.min(7,Math.floor(x*8)),f=x*8-g;if(f<.55)return along(LEGS[g],f/.55);return[SP_[g][0]+Math.sin(clock/20+p.id)*4,SP_[g][1]+Math.cos(clock/17+p.id)*3]}
+function build(){let h='<rect width="380" height="230" rx="8" fill="#161a25"/><rect x="62" y="6" width="100" height="13" rx="3" fill="#242a3a"/><text x="112" y="16" text-anchor="middle" font-size="8" fill="#8b93a7">WARM UP AREA</text>';
+ LEGS.forEach(l=>{const q=l.map(a=>a.join(',')).join(' ');h+=`<polyline points="${q}" fill="none" stroke="#3a4260" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/><polyline points="${q}" fill="none" stroke="#161a25" stroke-width="1.5" stroke-dasharray="2 6"/>`});
+ BX.forEach((b,i)=>{h+=`<rect x="${b[0]}" y="${b[1]}" width="${b[2]}" height="${b[3]}" rx="3" fill="#1f2433" stroke="#4a5373"/>`});
+ h+='<rect x="226" y="44" width="14" height="10" fill="#fff"/><path d="M226,44h7v5h-7zM233,49h7v5h-7z" fill="#12141c"/><text x="233" y="41" text-anchor="middle" font-size="7" fill="#ffd23f">META</text><rect x="30" y="41" width="16" height="4" fill="#ff4d4d"/><text x="26" y="36" font-size="7" fill="#ff4d4d">START</text>';
+ BX.forEach((b,i)=>{const cx=b[0]+b[2]/2,cy=i===0?b[1]+8:i===7?b[1]+10:b[1]+10;h+=`<g class="sn" tabindex="0" role="button" aria-label="Estación ${i+1}: ${EX[i].n}" onclick="openSt(${i})" onkeydown="if(event.key==='Enter')openSt(${i})"><circle cx="${cx}" cy="${cy}" r="18" fill="transparent"/><circle cx="${cx}" cy="${cy}" r="9" fill="#242a3a" stroke="#ffd23f" stroke-width="1.5"/><text x="${cx}" y="${cy+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#e8eaf0">${i+1}</text></g>`});
+ $('stn').innerHTML=h;$('leg').innerHTML=TC.map((c,i)=>`<span><span class="dot" style="background:${c}"></span>Tanda ${i+1}</span>`).join('')+'<span class="mu">· Toca un número para ver la estación · Anillo = tu atleta</span>';built=true}
+function dots(){if(!built)build();let h='';P.forEach(p=>{const x=prog(p),q=pos(x,p),fav=p.id===me.fav||(mine&&p.id===mine.id&&me.role==='par');if(fav&&x>0&&x<1&&x*8-Math.floor(x*8)>=.55)h+=`<circle cx="${q[0]}" cy="${q[1]}" r="13" fill="#ffd23f" opacity=".25"/>`;
+ h+=`<g transform="translate(${q[0]},${q[1]})" opacity="${p.cat===cat?1:.45}">${fav?'<circle r="8" fill="none" stroke="#fff" stroke-width="1.5"/>':''}<circle r="${fav?4.5:3}" fill="${p.col}"/>${fav?`<text y="-11" text-anchor="middle" font-size="8" fill="#fff">${p.name.split(' ')[0]}</text>`:''}</g>`});$('dots').innerHTML=h}
+/* ---- Estaciones y monigote ---- */
+const EX=[
+{n:'SkiErg',d:'1.000 m',pr:'ski',A:[5,150,0,150,0,0,0,0,0,0,0],B:[50,15,0,15,0,35,50,35,50,0,0],tx:'Tiras con los dos brazos de las asas hacia abajo, como si esquiaras de fondo. Es la primera prueba: la idea es entrar en ritmo sin vaciarte.',tip:'Empieza con el tronco alto, baja flexionando caderas y deja que los brazos terminen el gesto junto a las rodillas. Regula el ritmo para no quemarte.'},
+{n:'Sled Push',d:'50 m',pr:'sled',A:[65,100,0,100,0,55,70,-35,0,0,0],B:[65,100,0,100,0,-35,0,55,70,0,0],tx:'Empujas un trineo cargado con las manos en el asa, siempre con pasos cortos y potentes, sin soltarlo hasta cruzar la línea.',tip:'Cuerpo inclinado, brazos casi estirados, pasos rápidos y cortos. Mantén las caderas bajas y empuja con las piernas, no con los brazos.'},
+{n:'Sled Pull',d:'50 m',pr:'pull',A:[-10,125,0,125,0,30,10,-20,0,0,0],B:[-20,45,95,45,95,30,10,-20,0,0,0],tx:'Tiras de una cuerda mano sobre mano para traer el trineo hasta ti, desde una zona marcada y sin dar pasos hacia delante.',tip:'Siéntate hacia atrás, espalda neutra, y tira alternando manos. Usa las piernas como anclaje y los dorsales para tirar.'},
+{n:'Burpee Broad Jumps',d:'80 m',pr:'bbj',A:[70,5,0,5,0,75,125,75,125,0,0],B:[10,160,0,160,0,35,40,35,40,22,26],tx:'Te lanzas al suelo con el pecho, te levantas y saltas hacia delante lo máximo que puedas. Se repite hasta cubrir los 80 m.',tip:'Pecho al suelo, levántate rápido y salta con los dos pies. Aterriza suave para encadenar el siguiente burpee sin parar.'},
+{n:'Remo',d:'1.000 m',pr:'row',A:[15,105,0,105,0,80,100,80,100,0,0],B:[-25,35,100,35,100,85,5,85,5,0,0],tx:'Remas 1.000 m en ergómetro. Primero empujas con las piernas, luego abres el tronco y por último tiras con los brazos.',tip:'Secuencia piernas, tronco, brazos y vuelta en orden inverso. Es la estación para recuperar el pulso con una técnica limpia.'},
+{n:'Farmers Carry',d:'200 m',pr:'kb',A:[0,2,0,2,0,28,5,-28,25,0,0],B:[0,2,0,2,0,-28,25,28,5,0,0],tx:'Caminas 200 m con una pesa en cada mano. Si se te cae, la recoges y sigues desde donde falló el agarre.',tip:'Hombros atrás, abdomen firme y pasos rápidos. Lo que te limita aquí es el agarre, así que no lo gastes antes.'},
+{n:'Sandbag Lunges',d:'100 m',pr:'bag',A:[0,60,130,60,130,0,0,0,0,0,0],B:[5,60,130,60,130,65,90,-25,95,0,0],tx:'Zancadas caminando 100 m con un saco de arena sobre los hombros. La rodilla de atrás debe tocar el suelo en cada paso.',tip:'Saco alto sobre los hombros, tronco erguido y rodilla trasera al suelo en cada zancada. Respira entre pasos.'},
+{n:'Wall Balls',d:'75-100 lanzamientos',pr:'wall',A:[25,70,60,70,60,80,115,80,115,0,0],B:[-5,170,0,170,0,0,0,0,0,0,0],tx:'Sentadilla profunda con un balón medicinal y lanzamiento a una diana en la pared. Cada repetición debe llegar a la marca.',tip:'Baja a sentadilla y sube explosivo, lanzando en el mismo movimiento. Es la última prueba: lo que queda es meta.'}];
+const WM={1:0,2:1,5:2,6:3,7:4};
+function fk(q){const [t,aL,eL,aR,eR,hL,kL,hR,kR,hx,air]=q,r=Math.PI/180,v=(p,l,a)=>[p[0]+l*Math.sin(a*r),p[1]+l*Math.cos(a*r)];const hip=[105+hx,100],sh=[hip[0]+34*Math.sin(t*r),hip[1]-34*Math.cos(t*r)],hd=[sh[0]+14*Math.sin(t*r),sh[1]-14*Math.cos(t*r)];
+ const kn1=v(hip,26,hL),f1=v(kn1,26,hL-kL),kn2=v(hip,26,hR),f2=v(kn2,26,hR-kR),e1=v(sh,20,aL),h1=v(e1,20,aL+eL),e2=v(sh,20,aR),h2=v(e2,20,aR+eR);
+ const o={hip,sh,hd,kn1,f1,kn2,f2,e1,h1,e2,h2},dy=150-Math.max(f1[1],f2[1])-air;for(const k in o)o[k]=[o[k][0],o[k][1]+dy];return o}
+const ln=(a,b,c,w,o=1)=>`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${c}" stroke-width="${w}" stroke-linecap="round" opacity="${o}"/>`;
+function fig(i,s){const E=EX[i],q=E.A.map((a,k)=>a+(E.B[k]-a)*s),o=fk(q),sk='#f0c8a0',sh='#ffd23f',st='#2b3350';
+ let h='<line x1="0" y1="151" x2="240" y2="151" stroke="#3a4260" stroke-width="2"/>';const hm=[(o.h1[0]+o.h2[0])/2,(o.h1[1]+o.h2[1])/2];
+ if(E.pr==='ski')h+=`<line x1="150" y1="10" x2="150" y2="150" stroke="#4a5373" stroke-width="6"/><line x1="146" y1="16" x2="${hm[0]}" y2="${hm[1]}" stroke="#8b93a7" stroke-width="1.5"/>`;
+ if(E.pr==='sled')h+=`<rect x="${hm[0]+4}" y="128" width="50" height="20" rx="3" fill="#4a5373"/><rect x="${hm[0]+10}" y="118" width="36" height="10" fill="#8b93a7"/>`;
+ if(E.pr==='pull')h+=`<rect x="195" y="128" width="40" height="20" rx="3" fill="#4a5373"/><line x1="${hm[0]}" y1="${hm[1]}" x2="195" y2="138" stroke="#ffd23f" stroke-width="2"/>`;
+ if(E.pr==='row')h+=`<rect x="30" y="146" width="150" height="4" fill="#4a5373"/><circle cx="180" cy="130" r="16" fill="#242a3a" stroke="#8b93a7" stroke-width="3"/><line x1="${hm[0]}" y1="${hm[1]}" x2="168" y2="130" stroke="#ffd23f" stroke-width="2"/>`;
+ if(E.pr==='wall')h+=`<rect x="205" y="0" width="10" height="151" fill="#242a3a"/><circle cx="210" cy="30" r="9" fill="none" stroke="#ff7ab6" stroke-width="2"/>`;
+ h+=ln(o.sh,o.e2,'#c9a800',8,.7)+ln(o.e2,o.h2,sk,5,.7)+ln(o.hip,o.kn2,st,10,.7)+ln(o.kn2,o.f2,sk,6,.7)+ln(o.f2,[o.f2[0]+8,o.f2[1]],'#fff',5,.8);
+ h+=ln(o.hip,o.sh,sh,15)+`<circle cx="${o.hd[0]}" cy="${o.hd[1]}" r="9" fill="${sk}"/><path d="M${o.hd[0]-9},${o.hd[1]-2}h18" stroke="#ff7ab6" stroke-width="3"/>`;
+ h+=ln(o.hip,o.kn1,st,10)+ln(o.kn1,o.f1,sk,6)+ln(o.f1,[o.f1[0]+8,o.f1[1]],'#fff',5)+ln(o.sh,o.e1,sh,8)+ln(o.e1,o.h1,sk,5);
+ if(E.pr==='kb')h+=[o.h1,o.h2].map(a=>`<circle cx="${a[0]}" cy="${a[1]+7}" r="7" fill="#ff7ab6"/>`).join('');
+ if(E.pr==='bag')h+=`<rect x="${o.sh[0]-22}" y="${o.sh[1]-12}" width="36" height="11" rx="5" fill="#8b6b3d"/>`;
+ if(E.pr==='wall')h+=`<circle cx="${hm[0]+3}" cy="${hm[1]-4}" r="9" fill="#ff7ab6"/>`;
+ return `<svg viewBox="0 0 240 160" aria-hidden="true">${h}</svg>`}
+let raf=0,cur=-1;
+function openSt(i){cur=i;const E=EX[i],w=WM[i]!==undefined?CATS[cat].w[WM[i]]:'Sin carga añadida';let m=$('md');if(!m){m=document.createElement('div');m.id='md';m.className='md hide';m.onclick=e=>{if(e.target===m)closeSt()};document.body.appendChild(m)}
+ m.innerHTML=`<div class="mdc" role="dialog" aria-modal="true" aria-label="${E.n}"><button class="x" onclick="closeSt()">Cerrar</button><h2>${i+1}. ${E.n}</h2><span class="tag">${E.d}</span> <span class="tag">${cat}: ${w}</span><div id="fg"></div><p>${E.tx}</p><p class="mu"><b style="color:var(--tx)">Cómo hacerlo:</b> ${E.tip}</p><p id="occ" class="mu"></p></div>`;m.classList.remove('hide');m.querySelector('.x').focus();
+ cancelAnimationFrame(raf);const t0=performance.now();const loop=t=>{const s=(1-Math.cos((t-t0)/1400*2*Math.PI))/2;$('fg').innerHTML=fig(i,s);raf=requestAnimationFrame(loop)};if(matchMedia('(prefers-reduced-motion:reduce)').matches)$('fg').innerHTML=fig(i,.5);else loop(t0);occ()}
+function occ(){if(cur<0||!$('occ'))return;const L=P.filter(p=>clock>=p.start&&prog(p)<1&&Math.floor(prog(p)*8)===cur&&prog(p)*8-cur>=.55).map(p=>p.name+(p.id===me.fav?' ★':''));$('occ').textContent=L.length?'Ahora mismo aquí: '+L.join(', '):'Ahora mismo no hay nadie en esta estación.'}
+function closeSt(){cur=-1;cancelAnimationFrame(raf);$('md').classList.add('hide')}
+addEventListener('keydown',e=>{if(e.key==='Escape'&&cur>=0)closeSt()});setInterval(occ,1000);
+</script></body></html>
